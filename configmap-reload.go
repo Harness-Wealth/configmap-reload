@@ -55,6 +55,10 @@ func main() {
 								log.Println("error:", err)
 								continue
 							}
+							authHeader, authHeaderExists := os.LookupEnv("HTTP_AUTHORIZATION")
+							if authHeaderExists {
+								req.Header.Add("Authorization", authHeader)
+							}
 							resp, err := http.DefaultClient.Do(req)
 							if err != nil {
 								log.Println("error:", err)
